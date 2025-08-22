@@ -4,12 +4,13 @@ import { getUserDetails, getUser } from '@/utils/supabase/queries';
 import EditJob from '@/components/dashboard/jobs/edit';
 
 interface Props {
-  params: {
+  params: Promise<{
     id: string;
-  };
+  }>;
 }
 
 export default async function EditJobPage({ params }: Props) {
+  const resolvedParams = await params;
   const supabase = await createClient();
   const [user, userDetails] = await Promise.all([
     getUser(supabase),
@@ -20,5 +21,5 @@ export default async function EditJobPage({ params }: Props) {
     return redirect('/auth/signin');
   }
 
-  return <EditJob user={user} userDetails={userDetails} jobId={params.id} />;
+  return <EditJob user={user} userDetails={userDetails} jobId={resolvedParams.id} />;
 }

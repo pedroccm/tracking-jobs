@@ -5,7 +5,7 @@ import { updatePassword } from '@/utils/auth-helpers/server';
 import { handleRequest } from '@/utils/auth-helpers/client';
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
-import { Input } from '../ui/input';
+import { Input } from '@/components/ui/input';
 
 interface UpdatePasswordProps {
   redirectMethod: string;
@@ -14,7 +14,7 @@ interface UpdatePasswordProps {
 export default function UpdatePassword({
   redirectMethod
 }: UpdatePasswordProps) {
-  const router = redirectMethod === 'client' ? useRouter() : null;
+  const router = useRouter();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {

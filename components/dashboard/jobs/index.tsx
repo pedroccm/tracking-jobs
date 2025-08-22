@@ -16,7 +16,6 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import {
   HiOutlinePlus,
   HiOutlineMagnifyingGlass,
-  HiOutlineFilter,
   HiOutlineEye,
   HiOutlinePencil,
   HiOutlineTrash,

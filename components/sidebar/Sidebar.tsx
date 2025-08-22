@@ -1,7 +1,7 @@
 'use client';
 
-import { Badge } from '../ui/badge';
-import { Button } from '../ui/button';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
 import {
   renderThumb,
   renderTrack,
@@ -30,7 +30,7 @@ export interface SidebarProps extends PropsWithChildren {
 }
 
 function Sidebar(props: SidebarProps) {
-  const router = getRedirectMethod() === 'client' ? useRouter() : null;
+  const router = useRouter();
   const { routes } = props;
 
   const user = useContext(UserContext);

@@ -6,7 +6,7 @@ import { signInWithEmail } from '@/utils/auth-helpers/server';
 import { handleRequest } from '@/utils/auth-helpers/client';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import { Input } from '../ui/input';
+import { Input } from '@/components/ui/input';
 
 // Define prop type with allowPassword boolean
 interface EmailSignInProps {
@@ -19,7 +19,7 @@ export default function EmailSignIn({
   allowPassword,
   redirectMethod
 }: EmailSignInProps) {
-  const router = redirectMethod === 'client' ? useRouter() : null;
+  const router = useRouter();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -94,7 +94,7 @@ export default function EmailSignIn({
               href="/dashboard/signin/signup"
               className="font-medium text-sm dark:text-white"
             >
-              Don't have an account? Sign up
+              Don&apos;t have an account? Sign up
             </Link>
           </p>
         </>

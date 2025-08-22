@@ -13,6 +13,7 @@ import { useTheme } from 'next-themes';
 import { useRouter } from 'next/navigation';
 import React, { useContext, useEffect, useState } from 'react';
 import { FiAlignJustify } from 'react-icons/fi';
+import Link from 'next/link';
 import {
   HiOutlineMoon,
   HiOutlineSun,
@@ -27,7 +28,7 @@ export default function HeaderLinks(props: { [x: string]: any }) {
   const user = useContext(UserContext);
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
-  const router = getRedirectMethod() === 'client' ? useRouter() : null;
+  const router = useRouter();
   const onOpen = () => {
     setOpen(false);
   };
@@ -90,11 +91,11 @@ export default function HeaderLinks(props: { [x: string]: any }) {
               Help & Support
             </Button>
           </a>
-          <a target="blank" href="/#faqs">
+          <Link href="/#faqs" target="_blank">
             <Button variant="outline" className="w-full">
               FAQs & More
             </Button>
-          </a>
+          </Link>
         </DropdownMenuContent>
       </DropdownMenu>
 
