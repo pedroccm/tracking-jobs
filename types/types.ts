@@ -1,4 +1,3 @@
-import Stripe from 'stripe';
 import { ComponentType, ReactNode } from 'react';
 
 export type OpenAIModel =
@@ -33,7 +32,7 @@ export interface PageMeta {
 
 export interface Customer {
   id: string /* primary key */;
-  stripe_customer_id?: string;
+  external_customer_id?: string;
 }
 
 export interface Product {
@@ -42,7 +41,7 @@ export interface Product {
   name?: string;
   description?: string;
   image?: string;
-  metadata?: Stripe.Metadata;
+  metadata?: Record<string, any>;
 }
 
 export interface ProductWithPrice extends Product {
@@ -55,8 +54,8 @@ export interface UserDetails {
   last_name: string;
   full_name?: string;
   avatar_url?: string;
-  billing_address?: Stripe.Address;
-  payment_method?: Stripe.PaymentMethod[Stripe.PaymentMethod.Type];
+  billing_address?: Record<string, any>;
+  payment_method?: Record<string, any>;
 }
 
 export interface Price {
@@ -66,11 +65,11 @@ export interface Price {
   description?: string;
   unit_amount?: number;
   currency?: string;
-  type?: Stripe.Price.Type;
-  interval?: Stripe.Price.Recurring.Interval;
+  type?: 'one_time' | 'recurring';
+  interval?: 'day' | 'week' | 'month' | 'year';
   interval_count?: number;
   trial_period_days?: number | null;
-  metadata?: Stripe.Metadata;
+  metadata?: Record<string, any>;
   products?: Product;
 }
 
@@ -79,8 +78,8 @@ export interface PriceWithProduct extends Price {}
 export interface Subscription {
   id: string /* primary key */;
   user_id: string;
-  status?: Stripe.Subscription.Status;
-  metadata?: Stripe.Metadata;
+  status?: 'active' | 'canceled' | 'incomplete' | 'incomplete_expired' | 'past_due' | 'trialing' | 'unpaid';
+  metadata?: Record<string, any>;
   price_id?: string /* foreign key to prices.id */;
   quantity?: number;
   cancel_at_period_end?: boolean;
