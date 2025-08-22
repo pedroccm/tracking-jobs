@@ -19,7 +19,11 @@ export function SidebarLinks(props: SidebarLinksProps) {
   // verifies if routeName is the one active (in browser input)
   const activeRoute = useCallback(
     (routeName: string) => {
-      return pathname?.includes(routeName);
+      if (routeName === '/dashboard') {
+        // Dashboard should only be active for exact match or /dashboard/main
+        return pathname === '/dashboard' || pathname === '/dashboard/main';
+      }
+      return pathname?.startsWith(routeName);
     },
     [pathname]
   );
@@ -42,12 +46,12 @@ export function SidebarLinks(props: SidebarLinksProps) {
             <div className="w-full items-center justify-center">
               <div className="flex w-full items-center justify-center">
                 <div
-                  className={`text mr-3 mt-1.5 text-zinc-950 opacity-30 dark:text-white`}
+                  className={`text mr-3 mt-1.5 text-sidebar-foreground opacity-30`}
                 >
                   {route.icon}
                 </div>
                 <p
-                  className={`mr-auto text-sm text-zinc-950 opacity-30 dark:text-white`}
+                  className={`mr-auto text-sm text-sidebar-foreground opacity-30`}
                 >
                   {route.name}
                 </p>
@@ -61,8 +65,8 @@ export function SidebarLinks(props: SidebarLinksProps) {
             <div
               className={`flex w-full max-w-full items-center justify-between rounded-lg py-3 pl-8 ${
                 activeRoute(route.path.toLowerCase())
-                  ? 'bg-zinc-950 font-semibold text-white dark:bg-white dark:text-zinc-950'
-                  : 'font-medium text-zinc-950 dark:text-zinc-400'
+                  ? 'bg-primary font-semibold text-primary-foreground'
+                  : 'font-medium text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground'
               }`}
             >
               <NavLink
@@ -75,8 +79,8 @@ export function SidebarLinks(props: SidebarLinksProps) {
                     <div
                       className={`text mr-3 mt-1.5 ${
                         activeRoute(route.path.toLowerCase())
-                          ? 'font-semibold text-white dark:text-zinc-950'
-                          : 'text-zinc-950 dark:text-white'
+                          ? 'font-semibold text-primary-foreground'
+                          : 'text-sidebar-foreground'
                       } `}
                     >
                       {route.icon}
@@ -84,8 +88,8 @@ export function SidebarLinks(props: SidebarLinksProps) {
                     <p
                       className={`mr-auto text-sm ${
                         activeRoute(route.path.toLowerCase())
-                          ? 'font-semibold text-white dark:text-zinc-950'
-                          : 'font-medium text-zinc-950 dark:text-zinc-400'
+                          ? 'font-semibold text-primary-foreground'
+                          : 'font-medium text-sidebar-foreground'
                       }`}
                     >
                       {route.name}

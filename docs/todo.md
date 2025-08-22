@@ -1,0 +1,1 @@
+- O bucket ja foi criado no supabase e chama docs.

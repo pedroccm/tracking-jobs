@@ -1,10 +1,10 @@
-import Main from '@/components/dashboard/main';
 import { redirect } from 'next/navigation';
-import { getUserDetails, getUser } from '@/utils/supabase/queries';
 import { createClient } from '@/utils/supabase/server';
+import { getUserDetails, getUser, getDashboardStats, getRecentJobs, getUpcomingInterviews } from '@/utils/supabase/queries';
+import DashboardMain from '@/components/dashboard/main';
 
-export default async function Account() {
-  const supabase = createClient();
+export default async function DashboardMainPage() {
+  const supabase = await createClient();
   const [user, userDetails] = await Promise.all([
     getUser(supabase),
     getUserDetails(supabase)
@@ -14,5 +14,17 @@ export default async function Account() {
     return redirect('/dashboard/signin');
   }
 
-  return <Main user={user} userDetails={userDetails} />;
+  const [dashboardStats, recentJobs, upcomingInterviews] = await Promise.all([
+    getDashboardStats(supabase, user.id),
+    getRecentJobs(supabase, user.id),
+    getUpcomingInterviews(supabase, user.id)
+  ]);
+
+  return <DashboardMain 
+    user={user} 
+    userDetails={userDetails}
+    dashboardStats={dashboardStats}
+    recentJobs={recentJobs}
+    upcomingInterviews={upcomingInterviews}
+  />;
 }
