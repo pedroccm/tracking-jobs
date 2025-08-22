@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <style>
+    body {
+      width: 350px;
+      padding: 20px;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      margin: 0;
+      background: #fafafa;
+    }
+    .header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+      padding-bottom: 15px;
+      border-bottom: 1px solid #e5e5e5;
+    }
+    .logo {
+      width: 32px;
+      height: 32px;
+      background: #18181b;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 10px;
+      color: white;
+      font-weight: bold;
+    }
+    .title {
+      font-size: 18px;
+      font-weight: 600;
+      color: #18181b;
+    }
+    .form-group {
+      margin-bottom: 15px;
+    }
+    .label {
+      display: block;
+      margin-bottom: 5px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #374151;
+    }
+    .input {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid #d1d5db;
+      border-radius: 6px;
+      font-size: 14px;
+      box-sizing: border-box;
+    }
+    .input:focus {
+      outline: none;
+      border-color: #18181b;
+      box-shadow: 0 0 0 3px rgba(24, 24, 27, 0.1);
+    }
+    .button {
+      width: 100%;
+      padding: 12px;
+      background: #18181b;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      margin-bottom: 10px;
+    }
+    .button:hover {
+      background: #27272a;
+    }
+    .button:disabled {
+      background: #9ca3af;
+      cursor: not-allowed;
+    }
+    .status {
+      padding: 10px 12px;
+      border-radius: 6px;
+      font-size: 14px;
+      margin-bottom: 10px;
+    }
+    .status.success {
+      background: #dcfce7;
+      color: #166534;
+      border: 1px solid #bbf7d0;
+    }
+    .status.error {
+      background: #fef2f2;
+      color: #991b1b;
+      border: 1px solid #fecaca;
+    }
+    .status.info {
+      background: #dbeafe;
+      color: #1e40af;
+      border: 1px solid #bfdbfe;
+    }
+    .small-text {
+      font-size: 12px;
+      color: #6b7280;
+      margin-top: 5px;
+    }
+    .detected-job {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 6px;
+      padding: 12px;
+      margin-bottom: 15px;
+    }
+    .job-title {
+      font-weight: 600;
+      color: #1f2937;
+      margin-bottom: 5px;
+    }
+    .job-company {
+      color: #6b7280;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="logo">⚡</div>
+    <div class="title">Job Tracker</div>
+  </div>
+
+  <div id="loginForm">
+    <div class="form-group">
+      <label class="label">Código do Usuário</label>
+      <input type="text" id="userCode" class="input" placeholder="Cole seu código aqui">
+      <div class="small-text">Pegue seu código na página de Settings do Job Tracker</div>
+    </div>
+    <button id="saveCode" class="button">Salvar Código</button>
+  </div>
+
+  <div id="jobCapture" style="display: none;">
+    <div id="detectedJob" class="detected-job" style="display: none;">
+      <div class="job-title" id="jobTitle">Carregando...</div>
+      <div class="job-company" id="jobCompany">Carregando...</div>
+    </div>
+    
+    <div id="status"></div>
+    
+    <button id="captureJob" class="button">Capturar Vaga</button>
+    <button id="changeCode" class="button" style="background: #6b7280;">Trocar Código</button>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

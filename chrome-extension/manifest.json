@@ -1,0 +1,24 @@
+{
+  "manifest_version": 3,
+  "name": "Job Tracker - LinkedIn Capture",
+  "version": "1.0",
+  "description": "Captura informações de vagas do LinkedIn e salva no Job Tracker",
+  "permissions": [
+    "activeTab",
+    "storage"
+  ],
+  "host_permissions": [
+    "*://www.linkedin.com/*",
+    "*://localhost:3000/*"
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Job Tracker"
+  },
+  "content_scripts": [
+    {
+      "matches": ["*://www.linkedin.com/jobs/view/*"],
+      "js": ["content.js"]
+    }
+  ]
+}

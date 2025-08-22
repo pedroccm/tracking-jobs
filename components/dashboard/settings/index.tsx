@@ -204,6 +204,26 @@ export default function Settings(props: Props) {
                 Update email
               </Button>
             </div>
+
+            <label className="mb-3 flex cursor-pointer px-2.5 font-bold leading-none text-zinc-950 dark:text-white">
+              Seu Código de Usuário
+              <p className="ml-1 mt-[1px] text-sm font-medium leading-none text-zinc-500 dark:text-zinc-400">
+                (Use este código na extensão do Chrome)
+              </p>
+            </label>
+            <div className="mb-8 flex flex-col md:flex-row">
+              <Input
+                value={props.user?.id ?? ''}
+                readOnly
+                className="mr-4 flex h-full max-w-full w-full items-center justify-center px-4 py-4 outline-none bg-zinc-100 dark:bg-zinc-800"
+              />
+              <Button
+                className="flex h-full max-h-full w-full items-center justify-center rounded-lg px-4 py-4 text-base md:ms-4 font-medium md:w-[300px]"
+                onClick={() => navigator.clipboard.writeText(props.user?.id ?? '')}
+              >
+                Copiar Código
+              </Button>
+            </div>
           </Card>
           <Notifications notifications={notifications} />
         </div>

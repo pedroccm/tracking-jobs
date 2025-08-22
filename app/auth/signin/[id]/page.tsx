@@ -28,23 +28,24 @@ export default async function SignIn({
   if (typeof params.id === 'string' && viewTypes.includes(params.id)) {
     viewProp = params.id;
   } else {
+    const cookieStore = await cookies();
     const preferredSignInView =
-      cookies().get('preferredSignInView')?.value || null;
+      cookieStore.get('preferredSignInView')?.value || null;
     viewProp = getDefaultSignInView(preferredSignInView);
-    return redirect(`/dashboard/signin/${viewProp}`);
+    return redirect(`/auth/signin/${viewProp}`);
   }
 
   // Check if the user is already logged in and redirect to the account page if so
-  const supabase = createClient();
+  const supabase = await createClient();
 
   const {
     data: { user }
   } = await supabase.auth.getUser();
 
   if (user && viewProp !== 'update_password') {
-    return redirect('/dashboard/main');
+    return redirect('/dashboard');
   } else if (!user && viewProp === 'update_password') {
-    return redirect('/dashboard/signin');
+    return redirect('/auth/signin');
   }
 
   return (

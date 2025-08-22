@@ -11,7 +11,7 @@ export default async function DashboardMainPage() {
   ]);
 
   if (!user) {
-    return redirect('/dashboard/signin');
+    return redirect('/auth/signin');
   }
 
   const [dashboardStats, recentJobs, upcomingInterviews] = await Promise.all([

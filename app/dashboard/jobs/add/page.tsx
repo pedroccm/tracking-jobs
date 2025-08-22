@@ -11,7 +11,7 @@ export default async function AddJobPage() {
   ]);
 
   if (!user) {
-    return redirect('/dashboard/signin');
+    return redirect('/auth/signin');
   }
 
   return <AddJob user={user} userDetails={userDetails} />;

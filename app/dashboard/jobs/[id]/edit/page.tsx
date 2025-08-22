@@ -17,7 +17,7 @@ export default async function EditJobPage({ params }: Props) {
   ]);
 
   if (!user) {
-    return redirect('/dashboard/signin');
+    return redirect('/auth/signin');
   }
 
   return <EditJob user={user} userDetails={userDetails} jobId={params.id} />;

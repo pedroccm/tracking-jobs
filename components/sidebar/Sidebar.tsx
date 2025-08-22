@@ -38,7 +38,7 @@ function Sidebar(props: SidebarProps) {
   const handleSignOut = async (e) => {
     e.preventDefault();
     supabase.auth.signOut();
-    router.push('/dashboard/signin');
+    router.push('/auth/signin');
   };
   // SIDEBAR
   return (
@@ -69,15 +69,9 @@ function Sidebar(props: SidebarProps) {
                 <div className="me-2 flex h-[40px] w-[40px] items-center justify-center rounded-md bg-zinc-950 text-white dark:bg-white dark:text-zinc-950">
                   <HiBolt className="h-5 w-5" />
                 </div>
-                <h5 className="me-2 text-2xl font-bold leading-5 text-zinc-950 dark:text-white">
-                  Horizon AI
+                <h5 className="text-2xl font-bold leading-5 text-zinc-950 dark:text-white">
+                  Job Tracker
                 </h5>
-                <Badge
-                  variant="outline"
-                  className="my-auto w-max px-2 py-0.5 text-xs text-zinc-950 dark:border-none dark:bg-zinc-800 dark:text-white"
-                >
-                  FREE
-                </Badge>
               </div>
               <div className="mb-8 mt-8 h-px bg-zinc-200 dark:bg-white/10" />
               {/* Nav item */}
