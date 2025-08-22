@@ -80,28 +80,50 @@ captureJobBtn.addEventListener('click', async function() {
     const storage = await chrome.storage.local.get(['userCode']);
     const userCode = storage.userCode;
 
-    // Send to API
-    const response = await fetch('http://localhost:3000/api/jobs/capture', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        user_id: userCode,
-        ...jobData
-      })
-    });
+    // Try production URL first, fallback to localhost
+    const apiUrls = [
+      'https://tracking-jobs-git-main-pedros-projects-74eb8b5d.vercel.app/api/jobs/capture',
+      'http://localhost:3000/api/jobs/capture'
+    ];
 
-    if (response.ok) {
-      showStatus('Vaga capturada e salva com sucesso!', 'success');
-    } else {
-      const errorData = await response.json();
-      showStatus(`Erro ao salvar vaga: ${errorData.error || 'Erro desconhecido'}`, 'error');
+    let response;
+    let lastError;
+    
+    for (const apiUrl of apiUrls) {
+      try {
+        response = await fetch(apiUrl, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            user_id: userCode,
+            ...jobData
+          })
+        });
+
+        if (response.ok) {
+          showStatus('Vaga capturada e salva com sucesso!', 'success');
+          break; // Success, exit the loop
+        } else {
+          const errorData = await response.json();
+          lastError = `Erro ao salvar vaga: ${errorData.error || 'Erro desconhecido'}`;
+          continue; // Try next URL
+        }
+      } catch (error) {
+        lastError = error.message;
+        continue; // Try next URL
+      }
+    }
+
+    // If we get here and didn't succeed, show the last error
+    if (!response || !response.ok) {
+      showStatus(lastError || 'Erro ao capturar vaga. Verifique sua conexão.', 'error');
     }
 
   } catch (error) {
     console.error('Error capturing job:', error);
-    showStatus('Erro ao capturar vaga. Verifique se o Job Tracker está rodando.', 'error');
+    showStatus('Erro ao capturar vaga. Verifique sua conexão com a internet.', 'error');
   }
 
   captureJobBtn.disabled = false;

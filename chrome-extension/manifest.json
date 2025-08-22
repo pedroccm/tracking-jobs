@@ -9,7 +9,9 @@
   ],
   "host_permissions": [
     "*://www.linkedin.com/*",
-    "*://localhost:3000/*"
+    "*://localhost:3000/*",
+    "*://*.vercel.app/*",
+    "*://*.netlify.app/*"
   ],
   "action": {
     "default_popup": "popup.html",
